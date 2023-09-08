@@ -17,7 +17,7 @@ const options = {
 
 const Productivity = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isIntersecting = useIntersection(containerRef, options);
+  const [isIntersecting] = useIntersection(containerRef, options);
 
   const buildInAnimate = isIntersecting ? 'build-in-animate' : '';
 

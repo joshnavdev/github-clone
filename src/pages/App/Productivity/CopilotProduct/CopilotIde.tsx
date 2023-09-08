@@ -1,6 +1,13 @@
 import range from 'lodash/range';
 import { useRef, useState } from 'react';
-import { CopilotIcon, CopilotV2Icon, GolangIcon, JavaScriptIcon, PythonIcon } from '../../../../components/Icons';
+import {
+  CopilotIcon,
+  CopilotV2Icon,
+  GolangIcon,
+  JavaScriptIcon,
+  PythonIcon,
+  ReplayIcon,
+} from '../../../../components/Icons';
 import Tabs from '../../../../components/Tabs';
 import Tab from '../../../../components/Tab';
 import TabPanel from '../../../../components/TabPanel';
@@ -53,7 +60,7 @@ const stringCodeToTokens = (code: string) => {
 const CopilotIde = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const isIntersecting = useIntersection(containerRef, {
+  const [isIntersecting, setIsIntersecting] = useIntersection(containerRef, {
     root: null,
     rootMargin: '100px',
     threshold: 0.8,
@@ -68,6 +75,14 @@ const CopilotIde = () => {
   const codeLineProps = {
     selected: true,
     isIntersecting,
+  };
+
+  const handleRefreshClick = () => {
+    setIsIntersecting(false);
+
+    setTimeout(() => {
+      setIsIntersecting(true);
+    }, 0);
   };
 
   return (
@@ -93,7 +108,7 @@ const CopilotIde = () => {
               </div>
             ))}
           </div>
-          <div className="flex-1">
+          <div className="flex-1 build-in-animate">
             <CodeLine>{stringCodeToTokens('k::import ;;d::matplotlib.pyplot ;;k::as ;;d::plt')}</CodeLine>
             <CodeLine> </CodeLine>
             <CodeLine isIntersecting={isIntersecting} animate>
@@ -122,6 +137,16 @@ const CopilotIde = () => {
             </div>
           </div>
         </div>
+        <div
+          className={`absolute w-full left-0 bottom-0 -mb-[40px] text-center row-animation ${
+            isIntersecting && 'row-is-visible'
+          }`}
+        >
+          <button type="button" className="flex items-center mx-auto gap-2 text-sm" onClick={handleRefreshClick}>
+            <ReplayIcon width={16} height={16} />
+            Replay
+          </button>
+        </div>
       </TabPanel>
       <TabPanel value={active} index={1}>
         <div className="flex">
@@ -132,14 +157,44 @@ const CopilotIde = () => {
               </div>
             ))}
           </div>
-          <div className="flex-1 time.js">
+          <div className="flex-1 time.js build-in-animate">
             <CodeLine>{stringCodeToTokens('k::const ;;d::seconds ;;o::= ;;v::3600')}</CodeLine>
-            <CodeLine>{stringCodeToTokens('k::const ;;d::minutes ;;o::= ;;d::seconds ;;o::/ ;;v::60')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::const ;;d::hours ;;o::= ;;d::minutes ;;o::/ ;;v::60')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::const ;;d::days ;;o::= ;;d::hours ;;o::/ ;;v::24')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::const ;;d::weeks ;;o::= ;;d::days ;;o::/ ;;v::7')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::const ;;d::months ;;o::= ;;d::days ;;o::/ ;;v::30')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::const ;;d::years ;;o::= ;;d::months ;;o::/ ;;v::12')}</CodeLine>
+            <CodeLine isIntersecting={isIntersecting} animate>
+              {stringCodeToTokens('k::const ;;d::minutes ;;o::= ;;d::seconds ;;o::/ ;;v::60')}
+            </CodeLine>
+            <CodeLine {...codeLineProps}>
+              {stringCodeToTokens('k::const ;;d::hours ;;o::= ;;d::minutes ;;o::/ ;;v::60')}
+            </CodeLine>
+            <CodeLine {...codeLineProps}>
+              {stringCodeToTokens('k::const ;;d::days ;;o::= ;;d::hours ;;o::/ ;;v::24')}
+            </CodeLine>
+            <CodeLine {...codeLineProps}>
+              {stringCodeToTokens('k::const ;;d::weeks ;;o::= ;;d::days ;;o::/ ;;v::7')}
+            </CodeLine>
+            <CodeLine {...codeLineProps}>
+              {stringCodeToTokens('k::const ;;d::months ;;o::= ;;d::days ;;o::/ ;;v::30')}
+            </CodeLine>
+            <CodeLine {...codeLineProps}>
+              {stringCodeToTokens('k::const ;;d::years ;;o::= ;;d::months ;;o::/ ;;v::12')}
+            </CodeLine>
+            <div
+              className={`p-2 flex items-center absolute text-sm font-bold gap-1 bg-blue rounded-md rounded-tl-[0] row-animation ${
+                isIntersecting && 'row-is-visible'
+              }`}
+            >
+              <CopilotV2Icon height={15} width={16} viewBox="0 0 16 15" />
+              Copilot
+            </div>
+          </div>
+          <div
+            className={`absolute w-full left-0 bottom-0 -mb-[40px] text-center row-animation ${
+              isIntersecting && 'row-is-visible'
+            }`}
+          >
+            <button type="button" className="flex items-center mx-auto gap-2 text-sm" onClick={handleRefreshClick}>
+              <ReplayIcon width={16} height={16} />
+              Replay
+            </button>
           </div>
         </div>
       </TabPanel>
@@ -154,26 +209,46 @@ const CopilotIde = () => {
           </div>
           <div className="flex-1 memoize.go">
             <CodeLine>{stringCodeToTokens('k::package ;;d::main')}</CodeLine>
-            <CodeLine>
+            <CodeLine isIntersecting={isIntersecting} animate>
               {stringCodeToTokens(
                 'k::  func ;;f::Memoize;;d::(fn ;;k::func;;d::(;;t::int;;d::) ;;t::int;;d::) ;;k::func;;d::(;;t::int;;d::) ;;t::int ;;d::{'
               )}
             </CodeLine>
-            <CodeLine selected>
+            <CodeLine {...codeLineProps}>
               {stringCodeToTokens(
                 'd::    cache ;;o:::= ;;k::make;;d::(;;k::map;;d::[;;t::int;;d::];;t::int;;d::) ;;o::;;d::;;d::;;d::'
               )}
             </CodeLine>
-            <CodeLine selected>
+            <CodeLine {...codeLineProps}>
               {stringCodeToTokens('k::    return ;;k::func;;d::(n ;;t::int;;d::) ;;t::int ;;d::{')}
             </CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::      if ;;d::v, ok ;;o:::= ;;d::cache[n]; ok {')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::        return ;;d::v')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('d::      }')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('d::      cache[n] ;;o::= ;;f::fn;;d::(n)')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('k::      return ;;d::cache[n]')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('d::    }')}</CodeLine>
-            <CodeLine selected>{stringCodeToTokens('d::  }')}</CodeLine>
+            <CodeLine {...codeLineProps}>
+              {stringCodeToTokens('k::      if ;;d::v, ok ;;o:::= ;;d::cache[n]; ok {')}
+            </CodeLine>
+            <CodeLine {...codeLineProps}>{stringCodeToTokens('k::        return ;;d::v')}</CodeLine>
+            <CodeLine {...codeLineProps}>{stringCodeToTokens('d::      }')}</CodeLine>
+            <CodeLine {...codeLineProps}>{stringCodeToTokens('d::      cache[n] ;;o::= ;;f::fn;;d::(n)')}</CodeLine>
+            <CodeLine {...codeLineProps}>{stringCodeToTokens('k::      return ;;d::cache[n]')}</CodeLine>
+            <CodeLine {...codeLineProps}>{stringCodeToTokens('d::    }')}</CodeLine>
+            <CodeLine {...codeLineProps}>{stringCodeToTokens('d::  }')}</CodeLine>
+            <div
+              className={`p-2 flex items-center absolute text-sm font-bold gap-1 bg-blue rounded-md rounded-tl-[0] row-animation ${
+                isIntersecting && 'row-is-visible'
+              }`}
+            >
+              <CopilotV2Icon height={15} width={16} viewBox="0 0 16 15" />
+              Copilot
+            </div>
+          </div>
+          <div
+            className={`absolute w-full left-0 bottom-0 -mb-[40px] text-center row-animation ${
+              isIntersecting && 'row-is-visible'
+            }`}
+          >
+            <button type="button" className="flex items-center mx-auto gap-2 text-sm" onClick={handleRefreshClick}>
+              <ReplayIcon width={16} height={16} />
+              Replay
+            </button>
           </div>
         </div>
       </TabPanel>

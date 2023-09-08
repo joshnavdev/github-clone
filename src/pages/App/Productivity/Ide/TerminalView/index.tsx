@@ -4,7 +4,7 @@ import useIntersection from '../../../../../hooks/useIntersection';
 const TerminalView = () => {
   const terminalPanelRef = useRef<HTMLDivElement>(null);
 
-  const isIntersecting = useIntersection(terminalPanelRef, {
+  const [isIntersecting] = useIntersection(terminalPanelRef, {
     root: null,
     rootMargin: '0px',
     threshold: 0.5,

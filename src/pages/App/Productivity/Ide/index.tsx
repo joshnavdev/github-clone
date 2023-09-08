@@ -17,7 +17,7 @@ import useIntersection from '../../../../hooks/useIntersection';
 const Ide = () => {
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const isIntersecting = useIntersection(imageRef, {
+  const [isIntersecting] = useIntersection(imageRef, {
     root: null,
     rootMargin: '0px',
     threshold: 0.2,

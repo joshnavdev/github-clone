@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction, useEffect, useState } from 'react';
 
 const useIntersection = (ref: RefObject<HTMLElement>, options: IntersectionObserverInit) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -23,7 +23,7 @@ const useIntersection = (ref: RefObject<HTMLElement>, options: IntersectionObser
     };
   }, [ref, options]);
 
-  return isIntersecting;
+  return [isIntersecting, setIsIntersecting] as [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
 export default useIntersection;
