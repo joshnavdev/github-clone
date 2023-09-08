@@ -1,0 +1,15 @@
+.hover-mouse-blur {
+  width: 650px;
+  height: 650px;
+  left: -325px;
+  top: -325px;
+  filter: blur(180px);
+  border-radius: 300px;
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.card-skew:hover .hover-mouse-blur {
+  opacity: 0.85;
+}

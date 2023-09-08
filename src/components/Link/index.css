@@ -1,0 +1,33 @@
+.link .external-link {
+  visibility: hidden;
+  animation: fadeOutAnimation ease-out 300ms;
+}
+
+.link:hover .external-link {
+  visibility: visible;
+  animation: fadeInAnimation ease-out 300ms;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    transform: translateX(-0.4rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  0% {
+  visibility: visible;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+  visibility: hidden;
+    transform: translateX(-0.4rem);
+    opacity: 0;
+  }
+}

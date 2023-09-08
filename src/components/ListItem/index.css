@@ -1,0 +1,23 @@
+.list-item>.dropdown {
+  visibility: hidden;
+}
+
+.list-item:hover>.dropdown {
+  visibility: visible;
+  animation: scaleAnimation ease 500ms;
+}
+
+@keyframes scaleAnimation {
+    0% {
+        transform: scale(0.99) translateY(-0.7em);
+        transition-duration: 500ms;
+        transform-origin: top;
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        transition-duration: 500ms;
+        transform-origin: top;
+        opacity: 1;
+    }
+}
