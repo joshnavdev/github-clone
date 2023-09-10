@@ -34,7 +34,7 @@ const CardSkew = ({ children, color }: Props) => {
           x: calculateXRotation(height, posY),
           y: calculateYRotation(width, posX),
         });
-      }, 200),
+      }, 75),
     []
   );
 
