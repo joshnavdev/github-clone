@@ -105,6 +105,17 @@ pre {
   transform: scaleY(1);
 }
 
+.build-in-scale-fade {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.build-in-scale-fade.build-in-animate {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .build-in-slideX-left {
   opacity: 0;
   transform: translateX(-15px);

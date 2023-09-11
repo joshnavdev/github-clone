@@ -5,9 +5,9 @@ import './index.css';
 import useIntersection from '../../../hooks/useIntersection';
 import Ide from './Ide';
 import Main from './Main';
-import CardSkew from '../../../components/CardSkew';
-import Button from '../../../components/ListItem/Button';
 import CopilotProduct from './CopilotProduct';
+import ActionsProduct from './ActionsProduct';
+import MobileProduct from './MobileProduct';
 
 const options = {
   root: null, // it is the viewport
@@ -40,6 +40,14 @@ const Productivity = () => {
         <Main />
         <div className="relative z-10">
           <CopilotProduct />
+          <div className="flex gap-8">
+            <div className="w-6/12 flex">
+              <ActionsProduct />
+            </div>
+            <div className="w-6/12 flex">
+              <MobileProduct isIntersecting={isIntersecting} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
